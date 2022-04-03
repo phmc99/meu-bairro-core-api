@@ -1,0 +1,41 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <style type="text/css">
+      body { font-family: "Montserrat", sans-serif; } .data { color: #4a7e02;
+      font-weight: bolder; } .userName { text-transform: capitalize; }
+    </style>
+    <title>Email</title>
+  </head>
+  <body>
+    <h2>Olá,<span class="userName">{{name}}!</h2>
+    <p>
+      Houve uma atualização no seu cadastro no aplicativo
+      <strong>Meu Bairro</strong>.
+    </p>
+    <p>Pedimos por gentileza que confirme os seguintes dados de contatodo
+      comércio
+      <strong>{{commerce}}</strong>:</p>
+    <ul>
+      <li>Telefone 1: <span class="data">{{phone1}}</span>;</li>
+      <li>Telefone 2: <span class="data">{{phone2}}</span>;</li>
+      <li>Instagram: <span class="data">{{instagram}}</span>;</li>
+      <li>Facebook: <span class="data">{{facebook}}</span>;</li>
+      <li>WhatsApp: <span class="data">{{whatsapp}}</span>;</li>
+    </ul>
+    <p>
+      Caso você não tenha feito essa alteração nos informe pelo email:
+      <strong><a
+          href="alteracao@meubairro.com.br"
+        >alteracao@meubairro.com.br</a></strong>.
+    </p>
+  </body>
+</html>

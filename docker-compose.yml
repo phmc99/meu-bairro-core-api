@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    command: npm run dev
+    ports:
+      - 3000:3000
+    environment:
+      - PG_PASSWORD=password
+      - PG_DB=meu_bairro
+      - PG_USER=postgres
+      - PG_HOST=db
+      - SECRET=qualquerCoisa
+      - NODE_ENV=local
+      - GMAIL_ADDRESS=email
+      - GMAIL_PASSWORD=password
+    volumes:
+      - .:/code
+
+  db:
+    image: postgres:14
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=meu_bairro
+    ports:
+      - 5431:5432
