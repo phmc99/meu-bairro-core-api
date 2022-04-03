@@ -15,7 +15,9 @@ export const createFeedback = async (body: IBody) => {
   const feedbackRepository = getRepository(Feedback);
   const commerceRepository = getRepository(Commerce);
 
-  const commerce = await commerceRepository.findOne(commerceId);
+  const commerce = await commerceRepository.findOne(commerceId, {
+    relations: ["feedback"]
+  });
 
   const newFeedback = feedbackRepository.create({
     rate,
@@ -24,6 +26,12 @@ export const createFeedback = async (body: IBody) => {
     commerce,
   });
 
+  if (commerce?.feedback) {
+    await commerceRepository.save({...commerce, feedback: [...commerce.feedback, newFeedback]})
+  } else {
+    await commerceRepository.save({...commerce, feedback: [newFeedback]})
+  }
+  
   await feedbackRepository.save(newFeedback);
 
   return newFeedback;
