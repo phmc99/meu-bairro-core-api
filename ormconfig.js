@@ -1,10 +1,10 @@
 const devEnv = {
   type: "postgres",
-  host: process.env.PG_HOST,
+  host: "ec2-52-21-136-176.compute-1.amazonaws.com",
   port: "5432",
-  database: process.env.PG_DB,
-  username: process.env.PG_USER,
-  password: process.env.PG_PASSWORD,
+  database: "d283qt583ev74k",
+  username: "wynnpzenyfqhei",
+  password: "96ccae98d576690fe77d646bbe4eef1e63c66e9b84901fc8da8df5d80b0f8fae",
   entities: ["./src/entities/**/*.ts"],
   migrations: ["./src/database/migrations/*.ts"],
   cli: {
@@ -12,6 +12,7 @@ const devEnv = {
   },
   logging: true,
   synchronize: false,
+  ssl: { rejectUnauthorized: false }
 };
 
 const prodEnv = {
