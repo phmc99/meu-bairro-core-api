@@ -84,6 +84,10 @@ export const listOneUser = async (userId: string) => {
 
   const user = await userRepository.findOne(userId);
 
+  if (!user) {
+    return undefined;
+  }
+
   return {
     id: user?.id,
     firstName: user?.firstName,
