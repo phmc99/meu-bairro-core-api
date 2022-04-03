@@ -16,7 +16,7 @@ export const createFeedback = async (body: IBody) => {
   const commerceRepository = getRepository(Commerce);
 
   const commerce = await commerceRepository.findOne(commerceId, {
-    relations: ["feedback"]
+    relations: ["feedback"],
   });
 
   const newFeedback = feedbackRepository.create({
@@ -26,17 +26,19 @@ export const createFeedback = async (body: IBody) => {
     commerce,
   });
 
-  if (commerce?.feedback) {
-    await commerceRepository.save({...commerce, feedback: [...commerce.feedback, newFeedback]})
-  } else {
-    await commerceRepository.save({...commerce, feedback: [newFeedback]})
-  }
-  
   await feedbackRepository.save(newFeedback);
+
+  if (commerce?.feedback) {
+    await commerceRepository.save({
+      ...commerce,
+      feedback: [...commerce.feedback, newFeedback],
+    });
+  } else {
+    await commerceRepository.save({ ...commerce, feedback: [newFeedback] });
+  }
 
   return newFeedback;
 };
-
 
 export const deleteFeedback = async (id: string) => {
   const feedbackRepository = getRepository(Feedback);
