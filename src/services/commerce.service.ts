@@ -103,7 +103,9 @@ export const listAllCommerces = async () => {
 export const listOneCommerce = async (commerceId: string) => {
   const commerceRepository = getRepository(Commerce);
 
-  const commerce = await commerceRepository.findOne(commerceId);
+  const commerce = await commerceRepository.findOne(commerceId, {
+    relations: ["feedback", "category"]
+  });
 
   return commerce;
 };
