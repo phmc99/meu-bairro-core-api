@@ -15,6 +15,7 @@ import Adress from "./Address";
 import Contact from "./Contact";
 import Images from "./Images";
 import { Address, User } from ".";
+import Feedback from "./Feedback";
 
 @Entity("commerces")
 export default class Commerce {
@@ -40,6 +41,10 @@ export default class Commerce {
   @JoinTable()
   category!: Category[];
 
+  @ManyToMany(() => Feedback)
+  @JoinTable()
+  feedback!: Feedback[];
+
   @OneToOne(() => Address, { eager: true })
   @JoinColumn()
   address!: Adress;
@@ -52,7 +57,7 @@ export default class Commerce {
   @JoinColumn()
   image!: Images | any;
 
-  constructor(name: string, cnpj: string, description: string) {
+  constructor(name: string, cnpj: string) {
     this.name = name;
     this.cnpj = cnpj;
   }

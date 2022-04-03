@@ -84,7 +84,18 @@ export const listOneUser = async (userId: string) => {
 
   const user = await userRepository.findOne(userId);
 
-  return user;
+  return {
+    id: user?.id,
+    firstName: user?.firstName,
+    lastName: user?.lastName,
+    email: user?.email,
+    phone: user?.phone,
+    birthDate: user?.birthDate,
+    avatarUrl: user?.avatarUrl,
+    hasCommerce: user?.hasCommerce,
+    createdAt: user?.createdAt,
+    updatedAt: user?.updatedAt,
+  };
 };
 
 export const admPermission = async (userId: string) => {
