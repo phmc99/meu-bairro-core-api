@@ -1,5 +1,5 @@
 import { getRepository } from "typeorm";
-import { Commerce, Feedback } from "../entities";
+import { Commerce, Feedback, User } from "../entities";
 import AppError from "../errors/AppError";
 
 interface IBody {
@@ -14,6 +14,7 @@ export const createFeedback = async (body: IBody) => {
 
   const feedbackRepository = getRepository(Feedback);
   const commerceRepository = getRepository(Commerce);
+  const userRepository = getRepository(User);
 
   const commerce = await commerceRepository.findOne(commerceId, {
     relations: ["feedback"],
@@ -37,7 +38,23 @@ export const createFeedback = async (body: IBody) => {
     await commerceRepository.save({ ...commerce, feedback: [newFeedback] });
   }
 
-  return newFeedback;
+  const user = await userRepository.findOne(feedbackOwnerId);
+
+  return {
+    id: newFeedback.id,
+    rate: newFeedback.rate,
+    comment: newFeedback.comment,
+    feedbackOnwer: {
+      id: user?.id,
+      firstName: user?.firstName,
+      avatarUrl: user?.avatarUrl
+    },
+    commerce: {
+      id: commerce?.id,
+      cnpj: commerce?.cnpj,
+      name: commerce?.name
+    }
+  };
 };
 
 export const deleteFeedback = async (id: string) => {
@@ -46,7 +63,7 @@ export const deleteFeedback = async (id: string) => {
   const feedback = await feedbackRepository.findOne(id);
 
   if (!feedback) {
-    throw new AppError("Category not found!", 404);
+    throw new AppError("Feedback not found!", 404);
   }
 
   await feedbackRepository.remove([feedback]);
