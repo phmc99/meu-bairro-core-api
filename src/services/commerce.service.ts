@@ -91,12 +91,8 @@ export const create = async (body: Body, user: any) => {
   return commerce;
 };
 
-export const listAllCommerces = async (page: number) => {
+export const listAllCommerces = async (page: any) => {
   const commerceRepository = getRepository(Commerce);
-
-  if (page === NaN && page === undefined) {
-    page = 1;
-  }
 
   const commerces = await commerceRepository.find();
 

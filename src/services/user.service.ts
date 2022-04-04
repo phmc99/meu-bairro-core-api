@@ -72,12 +72,8 @@ export const login = async (email: string, password: string) => {
   };
 };
 
-export const listAllUsers = async (page: number) => {
+export const listAllUsers = async (page: any) => {
   const userRepository = getRepository(User);
-
-  if (page === NaN || page === undefined) {
-    page = 1;
-  }
 
   const users = await userRepository.find();
 
