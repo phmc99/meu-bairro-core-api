@@ -2,15 +2,13 @@ import { getCustomRepository, getRepository } from "typeorm";
 
 import {
   Address,
-  Category,
   Commerce,
   Contact,
   Images,
-  User,
 } from "../entities";
 import AppError from "../errors/AppError";
 import CategoryRepository from "../repositories/category.repository";
-import CommerceRepository from "../repositories/commerce.repository";
+import { paginateData } from "../utils";
 import { cep_finder } from "./address.service";
 import { imageUpload } from "./image.service";
 
@@ -94,15 +92,15 @@ export const create = async (body: Body, user: any) => {
 };
 
 export const listAllCommerces = async (page: number) => {
-  const commerceRepository = getCustomRepository(CommerceRepository);
+  const commerceRepository = getRepository(Commerce);
 
   if (page === NaN) {
     page = 1;
   }
-  
-  const commerces = await commerceRepository.findPaginated();
 
-  return commerces;
+  const commerces = await commerceRepository.find();
+
+  return paginateData(commerces, page);
 };
 
 export const listOneCommerce = async (commerceId: string) => {

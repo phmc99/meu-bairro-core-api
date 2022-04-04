@@ -7,6 +7,7 @@ import AppError from "../errors/AppError";
 import { cloudUpload } from "./cloudinary.service";
 import { readdirSync } from "fs";
 import path from "path";
+import { paginateData } from "../utils";
 
 interface IUser {
   firstName: string;
@@ -72,15 +73,15 @@ export const login = async (email: string, password: string) => {
 };
 
 export const listAllUsers = async (page: number) => {
-  const userRepository = getCustomRepository(UserRepository);
+  const userRepository = getRepository(User);
 
   if (page === NaN) {
     page = 1;
   }
 
-  const users = await userRepository.findPaginated(page);
+  const users = await userRepository.find();
 
-  return users;
+  return paginateData(users, page);
 };
 
 export const listOneUser = async (userId: string) => {
