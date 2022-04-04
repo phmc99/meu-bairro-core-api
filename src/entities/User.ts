@@ -33,7 +33,7 @@ export default class User {
   @Column()
   avatarUrl!: string;
 
-  @Column()
+  @Column({select: false})
   password!: string;
 
   @Column({ default: false })

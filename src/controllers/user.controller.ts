@@ -65,7 +65,8 @@ export const getAll = async (
   next: NextFunction
 ) => {
   try {
-    const users = await listAllUsers();
+    const page = req.query.page
+    const users = await listAllUsers(page);
     res.json(users);
   } catch (error) {
     next(error);

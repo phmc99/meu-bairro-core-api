@@ -59,7 +59,8 @@ export const getAll = async (
   next: NextFunction
 ) => {
   try {
-    const users = await listAllCommerces();
+    const page = Number(req.query.page)
+    const users = await listAllCommerces(page);
     res.json(users);
   } catch (error) {
     next(error);
