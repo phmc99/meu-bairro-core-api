@@ -94,7 +94,7 @@ export const create = async (body: Body, user: any) => {
 export const listAllCommerces = async (page: number) => {
   const commerceRepository = getRepository(Commerce);
 
-  if (page === NaN || page === undefined) {
+  if (page === NaN && page === undefined) {
     page = 1;
   }
 
