@@ -16,7 +16,7 @@ class UserRepository extends Repository<User> {
 
   public async findPaginated(page = 1): Promise<User[] | undefined> {
     const users = await this.find({
-      take: 30,
+      take: 15,
       skip: (page - 1) * 10,
     });
 

@@ -5,7 +5,7 @@ import { Commerce } from "../entities";
 class CommerceRepository extends Repository<Commerce> {
   public async findPaginated(page = 1): Promise<Commerce[] | undefined> {
     const commerces = await this.find({
-      take: 30,
+      take: 15,
       skip: (page - 1) * 10,
     });
 

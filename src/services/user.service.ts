@@ -71,10 +71,14 @@ export const login = async (email: string, password: string) => {
   };
 };
 
-export const listAllUsers = async () => {
-  const userRepository = getRepository(User);
+export const listAllUsers = async (page: number) => {
+  const userRepository = getCustomRepository(UserRepository);
 
-  const users = await userRepository.find();
+  if (page === NaN) {
+    page = 1;
+  }
+
+  const users = await userRepository.findPaginated(page);
 
   return users;
 };
