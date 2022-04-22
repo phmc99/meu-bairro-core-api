@@ -38,8 +38,8 @@ export const commerceRouter = () => {
     isCommerceOwner,
     updateCommerceContact
   );
-  router.get("/:id", isAuthenticated, getOne);
-  router.get("", isAuthenticated, getAll);
+  router.get("/:id", getOne);
+  router.get("", getAll);
 
   return router;
 };
